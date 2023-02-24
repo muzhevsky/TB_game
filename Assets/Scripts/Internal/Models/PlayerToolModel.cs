@@ -1,7 +1,7 @@
 ﻿namespace Internal.Models
 {
-    public class PlayerToolModel
+    public class PlayerToolModel : Model
     {
-        
+
     }
 }

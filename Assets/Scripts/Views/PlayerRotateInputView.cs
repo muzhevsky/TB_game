@@ -7,12 +7,6 @@ namespace Views
     public class PlayerRotateInputView : View
     {
         private IRotationController _controller;
-        private Vector2 _prevMousePosition;
-
-        void Start()
-        {
-            _prevMousePosition = Input.mousePosition;
-        }
         
         public void InitRotateInputView(IRotationController controller)
         {
@@ -24,11 +18,10 @@ namespace Views
             Rotate();
         }
 
-        private void Rotate()
+        void Rotate()
         {
             Vector2 mousePosition = Input.mousePosition;
-            _controller.Rotate(mousePosition - _prevMousePosition);
-            _prevMousePosition = mousePosition;
+            _controller.Rotate(new Vector3 (Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")));
         }
     }
 }
