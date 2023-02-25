@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
-        Cursor.visible = false;
     }
 
     // Update is called once per frame

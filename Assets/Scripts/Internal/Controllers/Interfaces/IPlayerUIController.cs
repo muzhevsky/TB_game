@@ -1,9 +1,10 @@
-﻿using Views.Interfaces;
+﻿using Internal.Models;
+using Views.Interfaces;
 
 namespace Internal.Controllers
 {
     public interface IPlayerUIController : Controller
     {
-        void Init(IPlayerUIView view);
+        void BindToView(IPlayerUIView view);
     }
 }

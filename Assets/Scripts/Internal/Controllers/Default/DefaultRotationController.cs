@@ -1,4 +1,6 @@
-﻿using Internal.Models;
+﻿using System;
+using System.IO;
+using Internal.Models;
 using UnityEngine;
 
 namespace Internal.Controllers
@@ -10,6 +12,8 @@ namespace Internal.Controllers
         private const int ConstraintValue = 85;
         public DefaultRotationController(ObjectComponentsModel objectComponentsModel)
         {
+            if (objectComponentsModel == null) throw new InvalidDataException("objectComponentsModel can not be null");
+            
             _objectComponentsModel = objectComponentsModel;
         }
         
