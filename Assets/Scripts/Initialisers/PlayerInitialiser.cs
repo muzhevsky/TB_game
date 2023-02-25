@@ -1,27 +1,71 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using DefaultNamespace.Initialisers;
+using DefaultNamespaceasd;
 using Internal.Controllers;
 using Internal.Models;
 using Internal.Utils;
 using ScriptableObjects;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Views;
-using Views.Interfaces;
 
 public class PlayerInitialiser : MonoBehaviour, IInitialiser
 {
     [SerializeField] private Image _hpBar;
     [SerializeField] private Image _boosterBar;
+    [SerializeField] private Image _batteryBar;
+    [SerializeField] private Text _warningText;
+
     [SerializeField] private PlayerDefaultStateConfig _stateConfig;
+
+    public Image BoosterBar
+    {
+        get => _boosterBar;
+        set
+        {
+            if (value == null) throw new InvalidDataException("BoosterBar can not be null");
+            _boosterBar = value;
+        }
+    }
+
+    public Image HpBar
+    {
+        get => _hpBar;
+        set
+        {
+            if (value == null) throw new InvalidDataException("HpBar can not be null");
+            _hpBar = value;
+        } 
+    }
+    
+    public Image BatteryBar
+    {
+        get => _batteryBar;
+        set
+        {
+            if (value == null) throw new InvalidDataException("BatteryBar can not be null");
+            _batteryBar = value;
+        }
+    }
+    
+    public Text WarningText
+    {
+        get => _warningText;
+        set
+        {
+            if (value == null) throw new InvalidDataException("WarningText can not be null");
+            _warningText = value;
+        }
+    }
+
     public void Init()
     {
         // models
         PlayerComponentsModel objectComponentsModel = new PlayerComponentsModel();
+        objectComponentsModel.GameObject = gameObject;
         objectComponentsModel.Rigidbody = GetComponent<Rigidbody>();
         objectComponentsModel.Transform = transform;
         objectComponentsModel.Camera = Camera.main;
@@ -37,7 +81,7 @@ public class PlayerInitialiser : MonoBehaviour, IInitialiser
         IJumpController jumpController = new PlayerJumpController(new DefaultJumpController(objectComponentsModel), playerModel);
         IMoveController moveController = new PlayerMoveController(new DefaultMoveController(objectComponentsModel, playerModel), objectComponentsModel);
         IRotationController rotationController = new PlayerRotationController(new DefaultRotationController(objectComponentsModel), objectComponentsModel, playerSettingsModel);
-        IPlayerUIController uiController = new DefaultUIController(playerModel);
+        IPlayerUIController uiController = new DefaultUIController(playerModel, playerToolModel);
         IPlayerToolController toolController = new DefaultPlayerToolController(objectComponentsModel, playerToolModel, playerResearchesModel);
         
         IFixedUpdatable hpRecoveryController = new DefaultHpRecoveryController(playerModel);
@@ -57,9 +101,12 @@ public class PlayerInitialiser : MonoBehaviour, IInitialiser
         DefaultPlayerUIView uiView = (DefaultPlayerUIView)gameObject.AddComponent(typeof(DefaultPlayerUIView));
         uiView.InitSuitController(uiController)
             .InitHPBar(_hpBar)
-            .InitBoosterBar(_boosterBar);
+            .InitBoosterBar(_boosterBar)
+            .InitBatteryBar(_batteryBar)
+            .InitWarningText(_warningText);
 
         PlayerToolView toolView = (PlayerToolView)gameObject.AddComponent(typeof(PlayerToolView));
-        toolView.InitPlayerToolView(toolController);
+        toolView.InitPlayerToolController(toolController);
+        toolView.InitPlayerUiView(uiView);
     }
 }
