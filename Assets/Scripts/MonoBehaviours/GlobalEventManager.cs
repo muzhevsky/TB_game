@@ -1,22 +1,27 @@
 ﻿using System;
+using System.IO;
 using Dto;
-using Internal.Models;
+using Enums;
 using ScriptableObjects;
+using ScriptableObjects.Resources;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace MonoBehaviours
 {
-    public class GlobalEventManager : MonoBehaviour
+    public static class GlobalEventManager
     {
-        public static event Action<TipDto> OnResearchEnd;
+        private static ResearchableConfigList _researchableConfigList;
 
-        public static void InvokeOnResearchEnd(ResearchableConfig config)
+        public static void Init(ResearchableConfigList list)
         {
-            OnResearchEnd?.Invoke(new TipDto()
-            {
-                Sprite = config.DescriptionSprite,
-                Text = config.Description
-            });
+            if (list == null) throw new InvalidDataException("list can not be null");
+            _researchableConfigList = list;
+        }
+        public static event Action<ResearchableDto> OnResearchEnd;
+
+        public static void InvokeOnResearchEnd(ResearchableType type)
+        {
+            OnResearchEnd?.Invoke(_researchableConfigList.GetDtoByType(type));
         }
     }
 }

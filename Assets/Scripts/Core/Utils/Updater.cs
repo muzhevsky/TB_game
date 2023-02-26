@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Internal.Utils
+namespace Core.Utils
 {
     public class Updater : MonoBehaviour
     {

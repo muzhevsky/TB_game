@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using Interfaces;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class PlayerToolModel : Model
     {
@@ -40,7 +41,7 @@ namespace Internal.Models
             set
             {
                 _batteryLeft = value;
-                OnBatteryChange?.Invoke(_batteryLeft);
+                OnBatteryChange?.Invoke(_batteryLeft / _batteryCap);
             }
         }
 

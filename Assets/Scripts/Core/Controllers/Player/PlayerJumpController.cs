@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Internal.Models;
-using Microsoft.Build.Framework;
+using Core.Controllers.Interfaces;
+using Core.Models;
 using UnityEngine;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Player
 {
     public class PlayerJumpController : IJumpController
     {
@@ -24,7 +23,7 @@ namespace Internal.Controllers
             if (_playerModel.Booster > 0)
             {
                 _playerModel.Booster -= _playerModel.BoosterConsumption;
-                _wrappedController.Jump(value * _playerModel.JumpForce);
+                if (!GameStateController.UserInputIsLocked) _wrappedController.Jump(value * _playerModel.JumpForce);
             }
         }
     }

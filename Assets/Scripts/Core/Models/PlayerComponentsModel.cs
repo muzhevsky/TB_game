@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class PlayerComponentsModel : ObjectComponentsModel
     {

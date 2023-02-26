@@ -1,6 +1,7 @@
-﻿using DefaultNamespace;
+﻿using Enums;
+using Interfaces;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Interfaces
 {
     public interface IResourceController : Controller
     {

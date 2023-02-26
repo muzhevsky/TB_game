@@ -1,11 +1,9 @@
-﻿using Views.Interfaces;
-
-namespace Internal.Controllers
+﻿
+namespace Core.Controllers.Interfaces
 {
     public interface IPlayerToolController
     {
         void SecondaryAction();
         void PrimaryAction();
-        void InitPlayerToolView(IPlayerToolView view);
     }
 }

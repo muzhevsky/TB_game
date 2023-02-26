@@ -1,8 +1,9 @@
-﻿using DefaultNamespace;
-using Internal.Models;
+﻿using Core.Controllers.Interfaces;
+using Core.Models;
+using Enums;
 using UnityEngine;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Default
 {
     public class DefaultResourceController : IResourceController
     {

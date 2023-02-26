@@ -1,10 +1,10 @@
-﻿using DefaultNamespace;
+﻿using Enums;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Interfaces
 {
     public interface IResearchableController
     {
-        void InitReserchableView(IResearchableView view);
-        void Research(float value);
+        bool Research(float value);
+        ResearchableType GetResearchableType();
     }
 }

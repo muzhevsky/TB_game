@@ -1,4 +1,4 @@
-﻿namespace Internal.Utils
+﻿namespace Core.Utils
 {
     public interface IUpdatable
     {

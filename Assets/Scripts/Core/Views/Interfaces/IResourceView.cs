@@ -1,11 +1,11 @@
-﻿using DefaultNamespace;
-using Internal.Controllers;
+﻿using Core.Controllers.Interfaces;
+using Enums;
 
-namespace Internal.Views.Interfaces
+namespace Core.Views.Interfaces
 {
     public interface IResourceView
     {
-        void InitResourceController(IResourceController resourceController);
+        void Init(IResourceController resourceController);
         ResourceType GetResourceType();
         void OnHarvest(float value);
     }

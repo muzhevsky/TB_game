@@ -1,16 +1,14 @@
 ﻿using System;
-using DefaultNamespace;
-using Internal.Models;
-using Internal.Views.Interfaces;
+using Core.Controllers.Interfaces;
+using Core.Models;
+using Core.Views.Interfaces;
+using MonoBehaviours;
 using UnityEngine;
-using Views;
-using Views.Interfaces;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Player
 {
     public class DefaultPlayerToolController : IPlayerToolController
     {
-        private IPlayerToolView _playerToolView;
         private ObjectComponentsModel _playerComponents;
         private PlayerToolModel _toolModel;
         private PlayerResearchesModel _researchesModel;
@@ -24,12 +22,8 @@ namespace Internal.Controllers
             _playerComponents = playerComponents;
             _toolModel = toolModel;
             _researchesModel = researchesModel;
-        }
-        
-        public void InitPlayerToolView(IPlayerToolView view)
-        {
-            if (view == null) throw new NullReferenceException("PlayerToolView can not be null");
-            _playerToolView = view;
+
+            GlobalEventManager.OnResearchEnd += dto => _researchesModel.AddResearchedResource(dto);
         }
 
         public void PrimaryAction()
@@ -39,9 +33,9 @@ namespace Internal.Controllers
             if (!IsBatteryEnough()) return;
 
             var researchable = GetResearchableView();
-            if (researchable != null && !_researchesModel.IsResearched(researchable))
+            if (researchable != null && !_researchesModel.IsResearched(researchable.GetResearchableType()))
             {
-                _playerToolView.OnActionError("Неизвестный ресурс \n Проведите исследование");
+                _researchesModel.OnResearchNeed();
                 return;
             }
 
@@ -57,10 +51,11 @@ namespace Internal.Controllers
             if (!IsBatteryEnough()) return;
 
             var researchable = GetResearchableView();
-            if (researchable == null || _researchesModel.IsResearched(researchable)) return;
+            if (researchable == null) return;
+            if (_researchesModel.IsResearched(researchable.GetResearchableType())) return;
             
-            _toolModel.BatteryLeft -= _toolModel.BatteryConsumption;
-            researchable.Research(_toolModel.Efficiency);
+            if (researchable.Research(_toolModel.Efficiency))
+                _toolModel.BatteryLeft -= _toolModel.BatteryConsumption;
         }
 
         private IResourceView GetResourceView()
@@ -93,12 +88,7 @@ namespace Internal.Controllers
 
         private bool IsBatteryEnough()
         {
-            if (_toolModel.BatteryLeft <= 0)
-            {
-                _playerToolView.OnActionError("Недостаточно заряда батареи \n Зарядите инструмент у ракеты");
-                return false;
-            }
-            return true;
+            return _toolModel.BatteryLeft > 0;
         }
     }
 }

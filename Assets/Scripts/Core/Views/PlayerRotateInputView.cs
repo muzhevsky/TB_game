@@ -1,8 +1,8 @@
-﻿using Internal.Controllers;
+﻿using Core.Controllers.Interfaces;
+using Interfaces;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-namespace Views
+namespace Core.Views
 {
     public class PlayerRotateInputView : View
     {

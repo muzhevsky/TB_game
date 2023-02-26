@@ -1,8 +1,8 @@
-﻿using DefaultNamespace;
-using Internal.Models;
+﻿using Core.Models;
+using Enums;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.Resources
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/ResourceConfig")]
     public class ResourceConfig : ScriptableObject

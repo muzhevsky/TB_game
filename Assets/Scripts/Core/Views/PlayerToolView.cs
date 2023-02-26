@@ -1,28 +1,48 @@
-﻿using DefaultNamespace;
-using DefaultNamespaceasd;
-using Internal.Controllers;
+﻿using Core.Controllers;
+using Core.Controllers.Interfaces;
+using Core.Models;
+using Interfaces;
+using MonoBehaviours;
 using UnityEngine;
-using Views.Interfaces;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-namespace Views
+namespace Core.Views
 {
-    public class PlayerToolView : View, IPlayerToolView
+    public class PlayerToolView : View
     { 
+        [SerializeField] private Image _batteryBar;
+        [SerializeField] private Text _warningText;
+        [SerializeField] private AlertView _alertView;
+        
         private IPlayerToolController _controller;
-        private IPlayerUIView _uiView;
-
-        public void InitPlayerToolController(IPlayerToolController controller)
+        public void Init(PlayerToolModel playerModel, PlayerResearchesModel researchesModel, IPlayerToolController controller)
         {
             _controller = controller;
-            _controller.InitPlayerToolView(this);
+            playerModel.OnBatteryChange += DrawBattery;
+            researchesModel.OnResearchNeedEvent += () => DrawError("Ресурс не изучен");
+            GlobalEventManager.OnResearchEnd += dto => { _alertView.NewAlert(dto); };
         }
 
-        public void InitPlayerUiView(IPlayerUIView view)
+        public PlayerToolView SetBatteryBar(Image bar)
         {
-            _uiView = view;
+            _batteryBar = bar;
+            return this;
         }
 
-        void Update()
+        public PlayerToolView SetWarningText(Text text)
+        {
+            _warningText = text;
+            return this;
+        }
+
+        public PlayerToolView SetAlertView(AlertView alert)
+        {
+            _alertView = alert;
+            return this;
+        }
+
+        private void Update()
         {
             if (Input.GetMouseButton(0))
             {
@@ -34,9 +54,15 @@ namespace Views
             }
         }
 
-        public void OnActionError(string message)
+        private void DrawBattery(float value)
         {
-            _uiView.DrawError(message);
+            _batteryBar.fillAmount = value;
+            if (value <= 0) DrawError("Батарея разряжена");
+        }
+
+        private void DrawError(string text)
+        {
+            _warningText.text = text;
         }
     }
 }

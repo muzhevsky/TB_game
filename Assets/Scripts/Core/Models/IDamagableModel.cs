@@ -1,4 +1,4 @@
-﻿namespace Internal.Models
+﻿namespace Core.Models
 {
     public interface IDamagableModel
     {

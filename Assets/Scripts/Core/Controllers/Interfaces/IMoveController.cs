@@ -1,6 +1,7 @@
+using Interfaces;
 using UnityEngine;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Interfaces
 {
     public interface IMoveController : Controller
     {

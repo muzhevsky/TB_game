@@ -1,8 +1,8 @@
-﻿using DefaultNamespace;
-using Internal.Models;
+﻿using Core.Models;
+using Enums;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.Resources
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/ResearchableConfig")]
     public class ResearchableConfig : ScriptableObject
@@ -34,6 +34,18 @@ namespace ScriptableObjects
         {
             get => _descriptionSprite;
             private set => _descriptionSprite = value;
+        }
+        
+        public ResearchableType Type
+        {
+            get => _type;
+            private set => _type = value;
+        }
+
+        public float ResearchNeed
+        {
+            get => _researchNeed;
+            private set => _researchNeed = value;
         }
     }
 }

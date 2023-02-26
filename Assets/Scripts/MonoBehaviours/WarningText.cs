@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DefaultNamespaceasd
+namespace MonoBehaviours
 {
     public class WarningText : Text
     {

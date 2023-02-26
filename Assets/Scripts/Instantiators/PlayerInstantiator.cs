@@ -1,10 +1,10 @@
-﻿using System;
-using DefaultNamespace.Initialisers;
-using DefaultNamespaceasd;
+﻿using Initialisers;
+using MonoBehaviours;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace DefaultNamespace.Instantiators
+namespace Instantiators
 {
     public class PlayerInstantiator : MonoBehaviour
     {
@@ -12,6 +12,7 @@ namespace DefaultNamespace.Instantiators
         [SerializeField] private Image _hpBar;
         [SerializeField] private Image _boosterBar;
         [SerializeField] private Image _batteryBar;
+        [SerializeField] private AlertView alertView;
         [SerializeField] private WarningText _warningText;
         private void Start()
         {
@@ -25,6 +26,7 @@ namespace DefaultNamespace.Instantiators
                 initialiser.BoosterBar = _boosterBar;
                 initialiser.BatteryBar = _batteryBar;
                 initialiser.WarningText = _warningText;
+                initialiser.AlertView = alertView;
                 initialiser.Init();
             }
         }

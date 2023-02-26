@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.Player
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/PlayerUpgradesConfig")]
     public class PlayerUpgradesConfig : ScriptableObject

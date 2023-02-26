@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Interfaces;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class CharacterModel : Model, IDamagableModel
     {
@@ -17,7 +15,6 @@ namespace Internal.Models
         private float _jumpForce = 10;
         private float _maxSpeed = 100;
 
-        public event Action<float> OnMaxHpChanged;
         public event Action<float> OnHPChanged;
         public float MaxHp
         {
@@ -26,7 +23,7 @@ namespace Internal.Models
             {
                 if (value <= 0) throw new NullReferenceException("Max hp should be greater then 0");
                 _maxHp = value;
-                OnMaxHpChanged?.Invoke(_maxHp);
+                OnHPChanged?.Invoke(_hp / _maxHp);
             }
         }
         public float Hp
@@ -36,7 +33,7 @@ namespace Internal.Models
             {
                 _hp = value;
                 if (_hp > _maxHp) _hp = _maxHp;
-                OnHPChanged?.Invoke(_hp);
+                OnHPChanged?.Invoke(_hp / _maxHp);
             }
         }
         

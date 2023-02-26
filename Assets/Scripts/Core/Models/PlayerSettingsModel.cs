@@ -1,4 +1,6 @@
-﻿namespace Internal.Models
+﻿using Interfaces;
+
+namespace Core.Models
 {
     public class PlayerSettingsModel : Model
     {

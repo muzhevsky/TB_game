@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using Internal.Models;
-using Internal.Utils;
+﻿using System.IO;
+using Core.Controllers.Interfaces;
+using Core.Models;
+using Core.Utils;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Default
 {
     public class DefaultHpRecoveryController: IRecoveryController, IFixedUpdatable
     {

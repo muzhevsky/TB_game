@@ -1,7 +1,8 @@
-﻿using Internal.Models;
+﻿using Core.Controllers.Interfaces;
+using Core.Models;
 using UnityEngine;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Player
 {
     public class PlayerRotationController : IRotationController
     {
@@ -20,7 +21,7 @@ namespace Internal.Controllers
         {
             var x = Quaternion.AngleAxis(-mouseDiff.y * _sensitivity, Vector3.right).eulerAngles;
             var y = Quaternion.AngleAxis(mouseDiff.x * _sensitivity, Vector3.up).eulerAngles;
-            _wrappedController.Rotate(x + y);
+            if (!GameStateController.UserInputIsLocked) _wrappedController.Rotate(x + y);
         }
     }
 }

@@ -1,34 +1,37 @@
-﻿using DefaultNamespace;
-using Internal.Models;
-using Views.Interfaces;
+﻿using Core.Controllers.Interfaces;
+using Core.Models;
+using Core.Views.Interfaces;
+using Enums;
+using MonoBehaviours;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Default
 {
     public class DefaultResearchableController : IResearchableController
     {
         private ResearchableModel _researchableModel;
-        private IResearchableView _researchableView;
 
         public DefaultResearchableController(ResearchableModel researchableModel)
         {
             _researchableModel = researchableModel;
-        }
-
-        public void InitReserchableView(IResearchableView view)
-        {
-            _researchableView = view;
             _researchableModel.OnResearchValueChanged += OnResearchValueChanged;
         }
 
-        public void Research(float value)
+        public bool Research(float value)
         {
+            if (_researchableModel.ResearchProgress >= _researchableModel.ResearchNeed) return false;
             _researchableModel.ResearchProgress += value;
+            return true;
+        }
+
+        public ResearchableType GetResearchableType()
+        {
+            return _researchableModel.ResearchableType;
         }
 
         public void OnResearchValueChanged(float value)
         {
             if (value >= _researchableModel.ResearchNeed)
-                GlobalEventManager.InvokeOnResearchEnd(_researchableModel.ResearchConfig);
+                GlobalEventManager.InvokeOnResearchEnd(_researchableModel.ResearchableType);
         }
     }
 }

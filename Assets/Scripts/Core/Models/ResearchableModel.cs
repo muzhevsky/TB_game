@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
-using DefaultNamespace;
-using ScriptableObjects;
+using Enums;
+using Interfaces;
+using ScriptableObjects.Resources;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class ResearchableModel : Model
     {

@@ -1,8 +1,9 @@
 using System;
-using Internal.Controllers;
+using Core.Controllers.Interfaces;
+using Interfaces;
 using UnityEngine;
 
-namespace Views
+namespace Core.Views
 {
     public class PlayerMoveInputView : View
     {

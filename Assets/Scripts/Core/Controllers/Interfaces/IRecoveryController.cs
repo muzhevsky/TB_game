@@ -1,4 +1,4 @@
-﻿namespace Internal.Controllers
+﻿namespace Core.Controllers.Interfaces
 {
     public interface IRecoveryController
     {

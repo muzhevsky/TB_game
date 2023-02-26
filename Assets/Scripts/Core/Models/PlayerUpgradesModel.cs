@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using DefaultNamespace;
+﻿using Interfaces;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class PlayerUpgradesModel : Model
     {

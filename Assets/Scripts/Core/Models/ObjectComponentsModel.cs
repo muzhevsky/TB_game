@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class ObjectComponentsModel : Model
     {

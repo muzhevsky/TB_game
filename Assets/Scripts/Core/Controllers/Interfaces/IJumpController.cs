@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Interfaces
 {
     public interface IJumpController
     {

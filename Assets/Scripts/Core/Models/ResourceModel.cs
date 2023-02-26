@@ -1,7 +1,7 @@
 ﻿using System;
-using DefaultNamespace;
+using Enums;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class ResourceModel
     {

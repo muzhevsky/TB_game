@@ -1,7 +1,7 @@
-﻿using Internal.Models;
+﻿using Core.Models;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.Player
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/PlayerDefaultSettings")]
     public class PlayerDefaultStateConfig : ScriptableObject

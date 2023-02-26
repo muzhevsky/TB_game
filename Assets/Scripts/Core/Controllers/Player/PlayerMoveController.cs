@@ -1,7 +1,8 @@
-﻿using Internal.Models;
+﻿using Core.Controllers.Interfaces;
+using Core.Models;
 using UnityEngine;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Player
 {
     public class PlayerMoveController : IMoveController
     {
@@ -18,7 +19,7 @@ namespace Internal.Controllers
         {
             Vector3 direction = _playerTransform.forward * axisValue.y + _playerTransform.right * axisValue.x;
             direction.Set(direction.x, 0, direction.z);
-            _wrappedController.Move(direction);
+            if (!GameStateController.UserInputIsLocked) _wrappedController.Move(direction);
         }
     }
 }

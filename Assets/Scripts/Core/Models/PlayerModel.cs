@@ -1,17 +1,15 @@
 using System;
 using System.IO;
-using UnityEngine;
 
-namespace Internal.Models
+namespace Core.Models
 {
     public class PlayerModel : CharacterModel
     {
         private float _booster;
         private float _maxBooster;
         private float _boosterRecovery;
-        private float _boosterConsumption;
 
-        public event Action<float> OnMaxBoosterCapChanged;
+        private float _boosterConsumption;
         public event Action<float> OnBoosterChanged;
         
         public float MaxBooster
@@ -21,7 +19,7 @@ namespace Internal.Models
             {
                 if (value <= 0) throw new InvalidDataException("MaxBooster should be greater then 0");
                 _maxBooster = value;
-                OnMaxBoosterCapChanged?.Invoke(_maxBooster);
+                OnBoosterChanged?.Invoke(_booster / _maxBooster);
             }
         }
 
@@ -33,7 +31,7 @@ namespace Internal.Models
                 if (value <= 0) throw new InvalidDataException("Booster should be greater then 0");
                 _booster = value;
                 if (_booster > _maxBooster) _booster = _maxBooster;
-                OnBoosterChanged?.Invoke(_booster);
+                OnBoosterChanged?.Invoke(_booster / _maxBooster);
             }
         }
 

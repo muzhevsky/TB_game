@@ -1,9 +1,9 @@
-using System;
 using System.IO;
-using Internal.Models;
+using Core.Controllers.Interfaces;
+using Core.Models;
 using UnityEngine;
 
-namespace Internal.Controllers
+namespace Core.Controllers.Default
 {
     public class DefaultMoveController : IMoveController
     {

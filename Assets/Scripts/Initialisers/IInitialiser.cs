@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace.Initialisers
+﻿namespace Initialisers
 {
     public interface IInitialiser
     {
