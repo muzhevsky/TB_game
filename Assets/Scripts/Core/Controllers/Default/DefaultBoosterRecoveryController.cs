@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Core.Controllers.Interfaces;
 using Core.Models;
 using Core.Utils;
@@ -14,12 +15,12 @@ namespace Core.Controllers.Default
 
         public DefaultBoosterRecoveryController(PlayerModel playerModel)
         {
-            if (playerModel == null) throw new InvalidDataException("playerSuitModel can not be null");
+            if (playerModel == null) throw new ArgumentException ("playerSuitModel can not be null");
             
             _playerModel = playerModel;
         }
 
-        public void Activate()
+        public void ActivateFixedUpdate()
         {
             _recoverAvailable = true;
         }
@@ -30,7 +31,7 @@ namespace Core.Controllers.Default
                 _playerModel.Booster += _playerModel.BoosterRecovery;
         }
 
-        public void StopUpdate()
+        public void StopFixedUpdate()
         {
             _recoverAvailable = false;
         }

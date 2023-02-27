@@ -20,7 +20,7 @@ namespace Core.Models
             get => _batteryCap;
             set
             {
-                if (value <= 0) throw new InvalidDataException("BatteryCap should be greater then zero");
+                if (value <= 0) throw new ArgumentException ("BatteryCap should be greater then zero");
                 _batteryCap = value;
             }
         }
@@ -30,7 +30,7 @@ namespace Core.Models
             get => _batteryConsumption;
             set
             {
-                if (value <= 0) throw new InvalidDataException("BatteryConsumption should be greater then zero");
+                if (value <= 0) throw new ArgumentException ("BatteryConsumption should be greater then zero");
                 _batteryConsumption = value;
             }
         }
@@ -50,7 +50,7 @@ namespace Core.Models
             get => _range;
             set
             {
-                if (value <= 0) throw new InvalidDataException("Range should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("Range should be greater then 0");
                 _range = value;
             }
         }
@@ -60,7 +60,7 @@ namespace Core.Models
             get => _efficiency;
             set
             {
-                if (value <= 0) throw new InvalidDataException("Efficiency should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("Efficiency should be greater then 0");
                 _efficiency = value;
             }
         }

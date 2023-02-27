@@ -7,29 +7,33 @@ using UnityEngine;
 
 namespace Core.Controllers.Player
 {
-    public class DefaultPlayerToolController : IPlayerToolController
+    public class PlayerToolController : IPlayerToolController
     {
         private ObjectComponentsModel _playerComponents;
         private PlayerToolModel _toolModel;
         private PlayerResearchesModel _researchesModel;
+        private InventoryModel _inventoryModel;
 
-        public DefaultPlayerToolController(ObjectComponentsModel playerComponents, PlayerToolModel toolModel, PlayerResearchesModel researchesModel)
+        public PlayerToolController(ObjectComponentsModel playerComponents, PlayerToolModel toolModel, 
+            PlayerResearchesModel researchesModel, InventoryModel inventoryModel)
         {
             if (playerComponents == null) throw new NullReferenceException("playerComponents is null");
             if (toolModel == null) throw new NullReferenceException("toolModel is null");
             if (researchesModel == null) throw new NullReferenceException("researchesModel is null");
+            if (inventoryModel == null) throw new NullReferenceException("inventoryModel is null");
             
             _playerComponents = playerComponents;
             _toolModel = toolModel;
             _researchesModel = researchesModel;
+            _inventoryModel = inventoryModel;
 
             GlobalEventManager.OnResearchEnd += dto => _researchesModel.AddResearchedResource(dto);
         }
 
         public void PrimaryAction()
         {
-            IResourceView defaultResourceView = GetResourceView();
-            if (defaultResourceView == null) return;
+            IResourceView resourceView = GetResourceView();
+            if (resourceView == null) return;
             if (!IsBatteryEnough()) return;
 
             var researchable = GetResearchableView();
@@ -40,7 +44,8 @@ namespace Core.Controllers.Player
             }
 
             _toolModel.BatteryLeft -= _toolModel.BatteryConsumption;
-            defaultResourceView.OnHarvest(_toolModel.Efficiency);
+            resourceView.OnHarvest(_toolModel.Efficiency);
+            _inventoryModel.AddResource(resourceView.GetResourceType(), _toolModel.Efficiency);
         }
         
         

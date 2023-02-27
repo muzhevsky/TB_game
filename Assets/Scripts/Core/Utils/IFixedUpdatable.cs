@@ -2,8 +2,8 @@
 {
     public interface IFixedUpdatable
     {
-        void Activate();
+        void ActivateFixedUpdate();
         void FixedUpdate();
-        void StopUpdate();
+        void StopFixedUpdate();
     }
 }

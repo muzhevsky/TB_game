@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Core.Controllers;
 using Dto;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace MonoBehaviours
 {
-    public class AlertView : View
+    public class Alert : MonoBehaviour
     {
         [SerializeField] private Image _image;
         [SerializeField] private TMP_Text _text;
@@ -25,8 +26,8 @@ namespace MonoBehaviours
         
         public void NewAlert(ResearchableDto dto)
         {
-            if (dto.Sprite == null) throw new InvalidDataException("Image can not be null");
-            if (dto.Text == null) throw new InvalidDataException("Text can not be null");
+            if (dto.Sprite == null) throw new ArgumentException ("Image can not be null");
+            if (dto.Text == null) throw new ArgumentException ("Text can not be null");
 
             _tipQueue.Enqueue(dto);
             ShowAlert();

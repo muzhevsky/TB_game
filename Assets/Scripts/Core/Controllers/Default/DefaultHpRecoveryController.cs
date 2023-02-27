@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Core.Controllers.Interfaces;
 using Core.Models;
 using Core.Utils;
@@ -13,7 +14,7 @@ namespace Core.Controllers.Default
 
         public DefaultHpRecoveryController(CharacterModel characterModel)
         {
-            if (characterModel == null) throw new InvalidDataException("characterModel can not be null");
+            if (characterModel == null) throw new ArgumentException ("characterModel can not be null");
             
             _characterModel = characterModel;
         }
@@ -23,7 +24,7 @@ namespace Core.Controllers.Default
             _characterModel.Hp += value;
         }
 
-        public void Activate()
+        public void ActivateFixedUpdate()
         {
             _recoverAvailable = true;
         }
@@ -34,7 +35,7 @@ namespace Core.Controllers.Default
                 _characterModel.Hp += _characterModel.HpRecovery;
         }
 
-        public void StopUpdate()
+        public void StopFixedUpdate()
         {
             _recoverAvailable = false;
         }

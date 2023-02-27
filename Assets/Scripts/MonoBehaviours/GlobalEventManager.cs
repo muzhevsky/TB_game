@@ -14,7 +14,7 @@ namespace MonoBehaviours
 
         public static void Init(ResearchableConfigList list)
         {
-            if (list == null) throw new InvalidDataException("list can not be null");
+            if (list == null) throw new ArgumentException ("list can not be null");
             _researchableConfigList = list;
         }
         public static event Action<ResearchableDto> OnResearchEnd;

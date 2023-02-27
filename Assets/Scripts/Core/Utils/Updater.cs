@@ -35,13 +35,13 @@ namespace Core.Utils
         public static void StartUpdateAll()
         {
             foreach (var item in s_updates)
-                item.Activate();
+                item.ActivateUpdate();
         }
         
         public static void StartFixedUpdateAll()
         {
             foreach (var item in s_fixedUpdates)
-                item.Activate();
+                item.ActivateFixedUpdate();
         }
     }
 }

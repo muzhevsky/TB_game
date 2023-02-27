@@ -1,4 +1,5 @@
-﻿using Initialisers;
+﻿using Core.Views;
+using Initialisers;
 using MonoBehaviours;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,8 +13,9 @@ namespace Instantiators
         [SerializeField] private Image _hpBar;
         [SerializeField] private Image _boosterBar;
         [SerializeField] private Image _batteryBar;
-        [SerializeField] private AlertView alertView;
+        [FormerlySerializedAs("alertView")] [SerializeField] private Alert alert;
         [SerializeField] private WarningText _warningText;
+        [SerializeField] private InventoryWindow _inventoryWindow;
         private void Start()
         {
             GameObject player = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
@@ -26,7 +28,8 @@ namespace Instantiators
                 initialiser.BoosterBar = _boosterBar;
                 initialiser.BatteryBar = _batteryBar;
                 initialiser.WarningText = _warningText;
-                initialiser.AlertView = alertView;
+                initialiser.Alert = alert;
+                initialiser.InventoryWindow = _inventoryWindow;
                 initialiser.Init();
             }
         }

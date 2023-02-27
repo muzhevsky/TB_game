@@ -2,7 +2,7 @@
 {
     public interface IUpdatable
     {
-        void Activate();
+        void ActivateUpdate();
         void Update();
         void StopUpdate();
     }

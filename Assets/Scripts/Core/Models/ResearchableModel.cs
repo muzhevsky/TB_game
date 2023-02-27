@@ -22,7 +22,7 @@ namespace Core.Models
             get => _researchConfig;
             set
             {
-                if (value == null) throw new InvalidDataException("ResearchableConfig can not be null");
+                if (value == null) throw new ArgumentException ("ResearchableConfig can not be null");
                 _researchConfig = value;
             }
         }
@@ -37,7 +37,7 @@ namespace Core.Models
             get => _researchProgress;
             set
             {
-                if (value <= 0) throw new InvalidDataException("ResearchProgress should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("ResearchProgress should be greater then 0");
                 _researchProgress = value;
                 OnResearchValueChanged?.Invoke(value);
             }
@@ -48,7 +48,7 @@ namespace Core.Models
             get => _researchNeed;
             set
             {
-                if (value <= 0) throw new InvalidDataException("ResearchNeed should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("ResearchNeed should be greater then 0");
                 _researchNeed = value;
             }
         }

@@ -17,7 +17,7 @@ namespace Core.Models
             get => _maxBooster;
             set
             {
-                if (value <= 0) throw new InvalidDataException("MaxBooster should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("MaxBooster should be greater then 0");
                 _maxBooster = value;
                 OnBoosterChanged?.Invoke(_booster / _maxBooster);
             }
@@ -28,7 +28,7 @@ namespace Core.Models
             get => _booster;
             set
             {
-                if (value <= 0) throw new InvalidDataException("Booster should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("Booster should be greater then 0");
                 _booster = value;
                 if (_booster > _maxBooster) _booster = _maxBooster;
                 OnBoosterChanged?.Invoke(_booster / _maxBooster);
@@ -40,7 +40,7 @@ namespace Core.Models
             get => _boosterRecovery;
             set
             {
-                if (value <= 0) throw new InvalidDataException("BoosterRecovery should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("BoosterRecovery should be greater then 0");
                 _boosterRecovery = value;
             }
         }
@@ -50,7 +50,7 @@ namespace Core.Models
             get => _boosterConsumption;
             set
             {
-                if (value <= 0) throw new InvalidDataException("BoosterConsumption should be greater then 0");
+                if (value <= 0) throw new ArgumentException ("BoosterConsumption should be greater then 0");
                 _boosterConsumption = value;
             }
         }

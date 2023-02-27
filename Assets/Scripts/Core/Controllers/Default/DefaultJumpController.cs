@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Core.Controllers.Interfaces;
 using Core.Models;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Core.Controllers.Default
         private ObjectComponentsModel _objectComponentsModel;
         public DefaultJumpController(ObjectComponentsModel objectComponentsModel)
         {
-            if (objectComponentsModel == null) throw new InvalidDataException("objectComponentsModel can not be null");
+            if (objectComponentsModel == null) throw new ArgumentException ("objectComponentsModel can not be null");
             
             _objectComponentsModel = objectComponentsModel;
         }

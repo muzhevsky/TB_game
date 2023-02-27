@@ -13,7 +13,7 @@ namespace Core.Views
     { 
         [SerializeField] private Image _batteryBar;
         [SerializeField] private Text _warningText;
-        [SerializeField] private AlertView _alertView;
+        [FormerlySerializedAs("_alertView")] [SerializeField] private Alert alert;
         
         private IPlayerToolController _controller;
         public void Init(PlayerToolModel playerModel, PlayerResearchesModel researchesModel, IPlayerToolController controller)
@@ -21,7 +21,7 @@ namespace Core.Views
             _controller = controller;
             playerModel.OnBatteryChange += DrawBattery;
             researchesModel.OnResearchNeedEvent += () => DrawError("Ресурс не изучен");
-            GlobalEventManager.OnResearchEnd += dto => { _alertView.NewAlert(dto); };
+            GlobalEventManager.OnResearchEnd += dto => { alert.NewAlert(dto); };
         }
 
         public PlayerToolView SetBatteryBar(Image bar)
@@ -36,9 +36,9 @@ namespace Core.Views
             return this;
         }
 
-        public PlayerToolView SetAlertView(AlertView alert)
+        public PlayerToolView SetAlertView(Alert alert)
         {
-            _alertView = alert;
+            this.alert = alert;
             return this;
         }
 

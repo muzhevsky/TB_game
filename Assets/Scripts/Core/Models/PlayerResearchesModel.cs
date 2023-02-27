@@ -29,7 +29,7 @@ namespace Core.Models
             get => _config;
             set
             {
-                if (value == null) throw new InvalidDataException("Config can not be null");
+                if (value == null) throw new ArgumentException ("Config can not be null");
                 _config = value;
             }
         }

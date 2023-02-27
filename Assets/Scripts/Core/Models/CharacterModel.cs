@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Core.Models
 {
-    public class CharacterModel : Model, IDamagableModel
+    public class CharacterModel : Model
     {
         public bool IsGrounded;
         

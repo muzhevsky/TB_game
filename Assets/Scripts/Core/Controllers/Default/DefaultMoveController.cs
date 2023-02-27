@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Core.Controllers.Interfaces;
 using Core.Models;
@@ -12,8 +13,8 @@ namespace Core.Controllers.Default
 
         public DefaultMoveController(ObjectComponentsModel objectComponentsModel, PlayerModel playerModel)
         {
-            if (objectComponentsModel == null) throw new InvalidDataException("objectComponentsModel can not be null");
-            if (playerModel == null) throw new InvalidDataException("playerSuitModel can not be null");
+            if (objectComponentsModel == null) throw new ArgumentException ("objectComponentsModel can not be null");
+            if (playerModel == null) throw new ArgumentException ("playerSuitModel can not be null");
             
             _objectComponentsModel = objectComponentsModel;
             _playerModel = playerModel;

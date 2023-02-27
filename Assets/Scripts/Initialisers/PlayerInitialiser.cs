@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using Core.Controllers;
 using Core.Controllers.Default;
 using Core.Controllers.Interfaces;
 using Core.Controllers.Player;
@@ -23,17 +25,25 @@ namespace Initialisers
         [SerializeField] private Image _boosterBar;
         [SerializeField] private Image _batteryBar;
         [SerializeField] private Text _warningText;
-        [SerializeField] private AlertView _alertView;
-        
-        [Header("Views")] 
-        [SerializeField] private DefaultPlayerView playerView;
+        [FormerlySerializedAs("_alertView")] [SerializeField] private Alert alert;
+        [SerializeField] private InventoryWindow _inventoryWindow;
+
+        public InventoryWindow InventoryWindow
+        {
+            get => _inventoryWindow;
+            set
+            {
+                if (value == null) throw new ArgumentException ("InventoryWindow can not be null");
+                _inventoryWindow = value;
+            }
+        }
 
         public Image BoosterBar
         {
             get => _boosterBar;
             set
             {
-                if (value == null) throw new InvalidDataException("BoosterBar can not be null");
+                if (value == null) throw new ArgumentException ("BoosterBar can not be null");
                 _boosterBar = value;
             }
         }
@@ -43,7 +53,7 @@ namespace Initialisers
             get => _hpBar;
             set
             {
-                if (value == null) throw new InvalidDataException("HpBar can not be null");
+                if (value == null) throw new ArgumentException ("HpBar can not be null");
                 _hpBar = value;
             } 
         }
@@ -53,7 +63,7 @@ namespace Initialisers
             get => _batteryBar;
             set
             {
-                if (value == null) throw new InvalidDataException("BatteryBar can not be null");
+                if (value == null) throw new ArgumentException ("BatteryBar can not be null");
                 _batteryBar = value;
             }
         }
@@ -63,18 +73,18 @@ namespace Initialisers
             get => _warningText;
             set
             {
-                if (value == null) throw new InvalidDataException("WarningText can not be null");
+                if (value == null) throw new ArgumentException ("WarningText can not be null");
                 _warningText = value;
             }
         }
 
-        public AlertView AlertView
+        public Alert Alert
         {
-            get => _alertView;
+            get => alert;
             set
             {
-                if (value == null) throw new InvalidDataException("Alert can not be null");
-                _alertView = value;
+                if (value == null) throw new ArgumentException ("Alert can not be null");
+                alert = value;
             }
         }
 
@@ -93,13 +103,16 @@ namespace Initialisers
             PlayerModel playerModel = _stateConfig.GetPlayerStatsModel();
             PlayerToolModel playerToolModel = _stateConfig.GetPlayerToolModel();
             PlayerResearchesModel playerResearchesModel = new PlayerResearchesModel();
+            InventoryModel inventoryModel = new InventoryModel();
         
             // controllers
             IJumpController jumpController = new PlayerJumpController(new DefaultJumpController(objectComponentsModel), playerModel);
             IMoveController moveController = new PlayerMoveController(new DefaultMoveController(objectComponentsModel, playerModel), objectComponentsModel);
             IRotationController rotationController = new PlayerRotationController(new DefaultRotationController(objectComponentsModel), objectComponentsModel, playerSettingsModel);
-            IPlayerToolController toolController = new DefaultPlayerToolController(objectComponentsModel, playerToolModel, playerResearchesModel);
-        
+            IPlayerToolController toolController = new PlayerToolController(objectComponentsModel, playerToolModel, 
+                playerResearchesModel, inventoryModel);
+            PlayerInventoryController inventoryController = new PlayerInventoryController(inventoryModel);
+            
             IFixedUpdatable hpRecoveryController = new DefaultHpRecoveryController(playerModel);
             IFixedUpdatable boosterRecoveryController = new DefaultBoosterRecoveryController(playerModel);
             Updater.AddFixedUpdatable(hpRecoveryController);
@@ -123,7 +136,11 @@ namespace Initialisers
             toolView.Init(playerToolModel, playerResearchesModel, toolController);
             toolView.SetBatteryBar(_batteryBar)
                 .SetWarningText(_warningText)
-                .SetAlertView(_alertView);
+                .SetAlertView(alert);
+
+            PlayerInventoryView inventoryView = (PlayerInventoryView)gameObject.AddComponent(typeof(PlayerInventoryView));
+            inventoryView.Window = _inventoryWindow;
+            inventoryView.InitInventoryController(inventoryController);
         }
     }
 }
