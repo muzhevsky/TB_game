@@ -1,8 +1,12 @@
 ﻿using Core.Controllers.Interfaces;
 using Core.Models;
+using Core.Utils;
 using Core.Views.Interfaces;
+using Dto;
 using Enums;
 using MonoBehaviours;
+using ScriptableObjects.Resources;
+using UnityEngine;
 
 namespace Core.Controllers.Default
 {
@@ -13,25 +17,38 @@ namespace Core.Controllers.Default
         public DefaultResearchableController(ResearchableModel researchableModel)
         {
             _researchableModel = researchableModel;
-            _researchableModel.OnResearchValueChanged += OnResearchValueChanged;
         }
 
-        public bool Research(float value)
+        private DefaultResearchableController()
         {
-            if (_researchableModel.ResearchProgress >= _researchableModel.ResearchNeed) return false;
+        }
+
+        public ResearchActionDto Research(float value)
+        {
+            ResearchActionDto result = new ResearchActionDto();
+            ResearchableDto researchableDto = new ResearchableDto();
+            researchableDto.Type = _researchableModel.ResearchableType;
+            researchableDto.Config = _researchableModel.ResearchConfig;
+            result.ResearchableData = researchableDto;
+            
+            if (_researchableModel.ResearchProgress >= _researchableModel.ResearchNeed)
+            {
+                result.IsSucceed = false;
+                result.IsFinished = false;
+                return result;
+            }
+            
             _researchableModel.ResearchProgress += value;
-            return true;
+            result.IsSucceed = true;
+            if (_researchableModel.ResearchProgress >= _researchableModel.ResearchNeed)
+                result.IsFinished = true;
+            
+            return result;
         }
 
         public ResearchableType GetResearchableType()
         {
             return _researchableModel.ResearchableType;
-        }
-
-        public void OnResearchValueChanged(float value)
-        {
-            if (value >= _researchableModel.ResearchNeed)
-                GlobalEventManager.InvokeOnResearchEnd(_researchableModel.ResearchableType);
         }
     }
 }

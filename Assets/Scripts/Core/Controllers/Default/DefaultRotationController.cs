@@ -17,7 +17,12 @@ namespace Core.Controllers.Default
             
             _objectComponentsModel = objectComponentsModel;
         }
-        
+
+        private DefaultRotationController()
+        {
+            
+        }
+
         public void Rotate(Vector3 direction)
         {
             _objectComponentsModel.Transform.Rotate(direction);

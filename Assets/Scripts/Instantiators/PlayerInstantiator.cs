@@ -13,7 +13,6 @@ namespace Instantiators
         [SerializeField] private Image _hpBar;
         [SerializeField] private Image _boosterBar;
         [SerializeField] private Image _batteryBar;
-        [FormerlySerializedAs("alertView")] [SerializeField] private Alert alert;
         [SerializeField] private WarningText _warningText;
         [SerializeField] private InventoryWindow _inventoryWindow;
         private void Start()
@@ -28,7 +27,6 @@ namespace Instantiators
                 initialiser.BoosterBar = _boosterBar;
                 initialiser.BatteryBar = _batteryBar;
                 initialiser.WarningText = _warningText;
-                initialiser.Alert = alert;
                 initialiser.InventoryWindow = _inventoryWindow;
                 initialiser.Init();
             }

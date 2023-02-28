@@ -10,6 +10,10 @@ namespace Core.Controllers.Player
         private IJumpController _wrappedController;
         private PlayerModel _playerModel;
 
+        private PlayerJumpController()
+        {
+        }
+        
         public PlayerJumpController(IJumpController wrappedController, PlayerModel playerModel)
         {
             if (wrappedController == null) throw new NullReferenceException("wrappedController is null");
@@ -18,6 +22,7 @@ namespace Core.Controllers.Player
             _wrappedController = wrappedController;
             _playerModel = playerModel;
         }
+        
         public void Jump(Vector3 value)
         {
             if (_playerModel.Booster > 0)

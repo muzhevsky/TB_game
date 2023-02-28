@@ -8,7 +8,7 @@ namespace Core.Models
         private IShipRepairState _currentRepairState = new FirstShipRepairState();
         private bool _readyToFly = false;
         
-        public Dictionary<ResourceType, int> TryToRepair(Dictionary<ResourceType, int> resources)
+        public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources)
         {
             IShipRepairState next = _currentRepairState.GetNext();
 
@@ -32,12 +32,12 @@ namespace Core.Models
     public interface IShipRepairState
     {
         IShipRepairState GetNext();
-        public Dictionary<ResourceType, int> TryToRepair(Dictionary<ResourceType, int> resources);
+        public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources);
     }
 
     public class FirstShipRepairState : IShipRepairState
     {
-        private Dictionary<ResourceType, int> _resourcesNeed = new Dictionary<ResourceType, int>();
+        private Dictionary<ResourceType, float> _resourcesNeed = new Dictionary<ResourceType, float>();
 
         public FirstShipRepairState()
         {
@@ -49,7 +49,7 @@ namespace Core.Models
             return new SecondShipRepairState();
         }
 
-        public Dictionary<ResourceType, int> TryToRepair(Dictionary<ResourceType, int> resources)
+        public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources)
         {
             foreach (var key in _resourcesNeed.Keys)
             {
@@ -57,13 +57,13 @@ namespace Core.Models
                 if (_resourcesNeed[key] > resources[key]) return null;
             }
 
-            return new Dictionary<ResourceType, int>(_resourcesNeed);
+            return new Dictionary<ResourceType, float>(_resourcesNeed);
         }
     }
 
     public class SecondShipRepairState : IShipRepairState
     {
-        private Dictionary<ResourceType, int> _resourcesNeed = new Dictionary<ResourceType, int>();
+        private Dictionary<ResourceType, float> _resourcesNeed = new Dictionary<ResourceType, float>();
 
         public SecondShipRepairState()
         {
@@ -76,7 +76,7 @@ namespace Core.Models
             return null;
         }
 
-        public Dictionary<ResourceType, int> TryToRepair(Dictionary<ResourceType, int> resources)
+        public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources)
         {
             foreach (var key in _resourcesNeed.Keys)
             {
@@ -84,7 +84,7 @@ namespace Core.Models
                 if (_resourcesNeed[key] > resources[key]) return null;
             }
 
-            return new Dictionary<ResourceType, int>(_resourcesNeed);
+            return new Dictionary<ResourceType, float>(_resourcesNeed);
         }
     }
 }

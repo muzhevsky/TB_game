@@ -1,12 +1,13 @@
 ﻿using System;
 using Core.Controllers.Interfaces;
 using Core.Views.Interfaces;
+using Dto;
 using Enums;
 using UnityEngine;
 
 namespace Core.Views
 {
-    public class DefaultResearchableView : MonoBehaviour, IResearchableView, IEquatable<IResearchableView>
+    public class DefaultResearchableView : MonoBehaviour, IResearchableView
     {
         private IResearchableController _controller;
 
@@ -15,7 +16,7 @@ namespace Core.Views
             _controller = controller;
         }
 
-        public bool Research(float value)
+        public ResearchActionDto Research(float value)
         {
             return _controller.Research(value);
         }
@@ -23,18 +24,6 @@ namespace Core.Views
         public void Visualize(float value)
         {
             // TODO: визуальный эффект изучения ресурса 
-        }
-
-        ResearchableType IResearchableView.GetResearchableType()
-        {
-            return _controller.GetResearchableType();
-        }
-
-        public bool Equals(IResearchableView other)
-        {
-            if (other == null) return false;
-            if (other == this) return true;
-            return other.GetResearchableType() == _controller.GetResearchableType();
         }
     }
 }

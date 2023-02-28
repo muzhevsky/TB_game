@@ -1,4 +1,5 @@
 ﻿using Core.Controllers.Interfaces;
+using Dto;
 using Enums;
 
 namespace Core.Views.Interfaces
@@ -6,7 +7,6 @@ namespace Core.Views.Interfaces
     public interface IResourceView
     {
         void Init(IResourceController resourceController);
-        ResourceType GetResourceType();
-        void OnHarvest(float value);
+        HarvestActionDto OnHarvest(float value);
     }
 }

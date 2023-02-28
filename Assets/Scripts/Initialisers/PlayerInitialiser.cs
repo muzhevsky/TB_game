@@ -7,6 +7,7 @@ using Core.Controllers.Player;
 using Core.Models;
 using Core.Utils;
 using Core.Views;
+using Core.Views.Interfaces;
 using MonoBehaviours;
 using ScriptableObjects.Player;
 using UnityEngine;
@@ -24,8 +25,7 @@ namespace Initialisers
         [SerializeField] private Image _hpBar;
         [SerializeField] private Image _boosterBar;
         [SerializeField] private Image _batteryBar;
-        [SerializeField] private Text _warningText;
-        [FormerlySerializedAs("_alertView")] [SerializeField] private Alert alert;
+        [SerializeField] private WarningText _warningText;
         [SerializeField] private InventoryWindow _inventoryWindow;
 
         public InventoryWindow InventoryWindow
@@ -68,23 +68,13 @@ namespace Initialisers
             }
         }
     
-        public Text WarningText
+        public WarningText WarningText
         {
             get => _warningText;
             set
             {
                 if (value == null) throw new ArgumentException ("WarningText can not be null");
                 _warningText = value;
-            }
-        }
-
-        public Alert Alert
-        {
-            get => alert;
-            set
-            {
-                if (value == null) throw new ArgumentException ("Alert can not be null");
-                alert = value;
             }
         }
 
@@ -106,12 +96,13 @@ namespace Initialisers
             InventoryModel inventoryModel = new InventoryModel();
         
             // controllers
-            IJumpController jumpController = new PlayerJumpController(new DefaultJumpController(objectComponentsModel), playerModel);
-            IMoveController moveController = new PlayerMoveController(new DefaultMoveController(objectComponentsModel, playerModel), objectComponentsModel);
-            IRotationController rotationController = new PlayerRotationController(new DefaultRotationController(objectComponentsModel), objectComponentsModel, playerSettingsModel);
-            IPlayerToolController toolController = new PlayerToolController(objectComponentsModel, playerToolModel, 
+            PlayerJumpController jumpController = new PlayerJumpController(new DefaultJumpController(objectComponentsModel), playerModel);
+            PlayerMoveController moveController = new PlayerMoveController(new DefaultMoveController(objectComponentsModel, playerModel), objectComponentsModel);
+            PlayerRotationController rotationController = new PlayerRotationController(new DefaultRotationController(objectComponentsModel), objectComponentsModel, playerSettingsModel);
+            PlayerToolController toolController = new PlayerToolController(objectComponentsModel, playerToolModel, 
                 playerResearchesModel, inventoryModel);
             PlayerInventoryController inventoryController = new PlayerInventoryController(inventoryModel);
+            IChargableToolController chargableToolController = toolController as IChargableToolController;
             
             IFixedUpdatable hpRecoveryController = new DefaultHpRecoveryController(playerModel);
             IFixedUpdatable boosterRecoveryController = new DefaultBoosterRecoveryController(playerModel);
@@ -133,14 +124,15 @@ namespace Initialisers
                 .SetBoosterBar(_boosterBar);
 
             PlayerToolView toolView = (PlayerToolView)gameObject.AddComponent(typeof(PlayerToolView));
-            toolView.Init(playerToolModel, playerResearchesModel, toolController);
+            toolView.Init(toolController, chargableToolController);
             toolView.SetBatteryBar(_batteryBar)
-                .SetWarningText(_warningText)
-                .SetAlertView(alert);
+                .SetWarningText(_warningText);
 
             PlayerInventoryView inventoryView = (PlayerInventoryView)gameObject.AddComponent(typeof(PlayerInventoryView));
             inventoryView.Window = _inventoryWindow;
             inventoryView.InitInventoryController(inventoryController);
+
+            PlayerInteractionView interactionView = (PlayerInteractionView)gameObject.AddComponent(typeof(PlayerInteractionView));
         }
     }
 }

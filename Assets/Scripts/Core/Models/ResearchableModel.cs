@@ -15,8 +15,6 @@ namespace Core.Models
 
         private ResearchableType _researchableType;
 
-        public event Action<float> OnResearchValueChanged;
-
         public ResearchableConfig ResearchConfig
         {
             get => _researchConfig;
@@ -39,7 +37,6 @@ namespace Core.Models
             {
                 if (value <= 0) throw new ArgumentException ("ResearchProgress should be greater then 0");
                 _researchProgress = value;
-                OnResearchValueChanged?.Invoke(value);
             }
         }
 

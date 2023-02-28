@@ -9,8 +9,6 @@ namespace Core.Controllers.Default
     public class DefaultHpRecoveryController: IRecoveryController, IFixedUpdatable
     {
         private CharacterModel _characterModel;
-        
-        private bool _recoverAvailable;
 
         public DefaultHpRecoveryController(CharacterModel characterModel)
         {
@@ -26,18 +24,18 @@ namespace Core.Controllers.Default
 
         public void ActivateFixedUpdate()
         {
-            _recoverAvailable = true;
+            _characterModel.Recoverable = true;
         }
 
         public void FixedUpdate()
         {
-            if (_recoverAvailable)
+            if (_characterModel.Recoverable)
                 _characterModel.Hp += _characterModel.HpRecovery;
         }
 
         public void StopFixedUpdate()
         {
-            _recoverAvailable = false;
+            _characterModel.Recoverable = false;
         }
     }
 }

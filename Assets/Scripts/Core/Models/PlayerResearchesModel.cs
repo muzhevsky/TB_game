@@ -16,13 +16,7 @@ namespace Core.Models
         private HashSet<ResearchableType> _researched = new HashSet<ResearchableType>();
         private ResearchableConfig _config;
 
-        public PlayerResearchesModel()
-        {
-            GlobalEventManager.OnResearchEnd += AddResearchedResource;
-        }
 
-        public event Action OnResearchNeedEvent;
-        
         
         public ResearchableConfig Config
         {
@@ -44,9 +38,6 @@ namespace Core.Models
             return _researched.Contains(type);
         }
 
-        public void OnResearchNeed()
-        {
-            OnResearchNeedEvent?.Invoke();
-        }
+
     }
 }

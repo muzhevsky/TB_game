@@ -1,10 +1,10 @@
-﻿using Enums;
+﻿using Dto;
+using Enums;
 
 namespace Core.Controllers.Interfaces
 {
     public interface IResearchableController
     {
-        bool Research(float value);
-        ResearchableType GetResearchableType();
+        ResearchActionDto Research(float value);
     }
 }

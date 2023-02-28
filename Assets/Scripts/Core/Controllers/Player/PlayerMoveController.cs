@@ -9,6 +9,12 @@ namespace Core.Controllers.Player
         private IMoveController _wrappedController;
         private Transform _playerTransform;
 
+        
+        private PlayerMoveController()
+        {
+            
+        }
+        
         public PlayerMoveController(IMoveController wrappedController, ObjectComponentsModel objectComponentsModel)
         {
             _wrappedController = wrappedController;

@@ -11,7 +11,7 @@ namespace MonoBehaviours
 
         public void Init(ResourceDto resource, float amount)
         {
-            Title.text = resource.Title;
+            Title.text = resource.Config.Title;
             Amount.text = amount.ToString();
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Controllers;
 using Core.Controllers.Player;
+using Core.Views.Interfaces;
 using Enums;
 using Interfaces;
 using MonoBehaviours;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace Core.Views
 {
-    public class PlayerInventoryView : View
+    public class PlayerInventoryView : View, IInventoryView
     {
         private PlayerInventoryController _controller;
 
@@ -45,7 +46,6 @@ namespace Core.Views
                 else GameStateController.Unpause();
             }
         }
-
         public Dictionary<ResourceType, float> GetInventoryData()
         {
             return _controller.GetInventoryData();

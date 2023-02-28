@@ -16,7 +16,12 @@ namespace Core.Controllers.Player
             if (model == null) throw new ArgumentException ("model can not be null");
             _model = model;
         }
-        
+
+        private PlayerInventoryController()
+        {
+            
+        }
+
         public bool SpendResource(Dictionary<ResourceType, float> amounts)
         {
             return _model.SpendResources(amounts);

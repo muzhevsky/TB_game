@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Controllers.Interfaces;
 using Core.Views.Interfaces;
+using Dto;
 using Enums;
 using UnityEngine;
 
@@ -16,14 +17,9 @@ namespace Core.Views
             _resourceController = resourceController;
         }
 
-        public ResourceType GetResourceType()
+        public HarvestActionDto OnHarvest(float value)
         {
-            return _resourceController.GetResourceType();
-        }
-
-        public void OnHarvest(float value)
-        {
-            _resourceController.SpendResource(value);
+            return _resourceController.HarvestResource(value);
         }
     }
 }

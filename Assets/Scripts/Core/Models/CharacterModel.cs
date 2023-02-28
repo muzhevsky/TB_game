@@ -6,6 +6,7 @@ namespace Core.Models
     public class CharacterModel : Model
     {
         public bool IsGrounded;
+        public bool Recoverable;
         
         private float _hp = 100;
         private float _maxHp = 100;

@@ -6,16 +6,19 @@ namespace Core.Controllers.Player
 {
     public class PlayerRotationController : IRotationController
     {
-        private Transform _objectTransform;
         private float _sensitivity;
         private IRotationController _wrappedController;
+
+        private PlayerRotationController()
+        {
+            
+        }
+
         public PlayerRotationController(IRotationController wrappedController, ObjectComponentsModel objectComponentsModel, PlayerSettingsModel playerSettings)
         {
             _sensitivity = playerSettings.MouseSensitivity;
-            _objectTransform = objectComponentsModel.Transform;
             _wrappedController = wrappedController;
         }
-        
         
         public void Rotate(Vector3 mouseDiff)
         {

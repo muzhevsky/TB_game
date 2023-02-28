@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 7747353230435783798}
   - component: {fileID: 1397609157748038218}
   - component: {fileID: 125416336794723450}
+  - component: {fileID: 3237949005525123406}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -244,6 +245,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb905b84d9225d04ebd7a75a7a20353e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stateConfig: {fileID: 11400000, guid: 8f3751f0aa42ab24c836295b7819e32f, type: 2}
   _hpBar: {fileID: 0}
   _boosterBar: {fileID: 0}
-  _stateConfig: {fileID: 11400000, guid: 8f3751f0aa42ab24c836295b7819e32f, type: 2}
+  _batteryBar: {fileID: 0}
+  _warningText: {fileID: 0}
+  _inventoryWindow: {fileID: 0}
+--- !u!135 &3237949005525123406
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747353230435783795}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

@@ -15,7 +15,8 @@ namespace Core.Views
 
         public void InitShipRepairController(ShipRepairController controller)
         {
-            if (controller == null) throw new ArgumentException("");
+            if (controller == null) throw new ArgumentException("ship repair controller is null");
+            _controller = controller;
         }
         
         public void Interact(GameObject interactCaller)

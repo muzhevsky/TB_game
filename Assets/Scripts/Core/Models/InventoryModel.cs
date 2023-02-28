@@ -15,16 +15,21 @@ namespace Core.Models
 
         public bool SpendResources(Dictionary<ResourceType, float> amounts)
         {
+            var newInventory = new Dictionary<ResourceType, float>(_inventory);
+            
             foreach (var item in _inventory.Keys)
             {
-                _inventory[item] -= amounts[item];
-                if (_inventory[item] < 0)
+                newInventory[item] -= amounts[item];
+                if (newInventory[item] < 0)
                 {
-                    _inventory[item] += amounts[item];
                     return false;
                 }
             }
 
+            foreach (var item in newInventory.Keys)
+            {
+                _inventory[item] = newInventory[item];
+            }
             return true;
         }
 

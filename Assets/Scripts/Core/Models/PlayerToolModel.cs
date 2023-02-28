@@ -41,6 +41,7 @@ namespace Core.Models
             set
             {
                 _batteryLeft = value;
+                if (_batteryLeft >= _batteryCap) _batteryLeft = _batteryCap;
                 OnBatteryChange?.Invoke(_batteryLeft / _batteryCap);
             }
         }

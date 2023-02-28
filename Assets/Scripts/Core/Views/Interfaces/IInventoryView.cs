@@ -5,8 +5,8 @@ namespace Core.Views.Interfaces
 {
     public interface IInventoryView
     {
-        bool SpendResources(Dictionary<ResourceType, int> amounts);
-        void AddResources(Dictionary<ResourceType, int> amounts);
-        Dictionary<ResourceType, int> GetInventoryData();
+        bool SpendResources(Dictionary<ResourceType, float> amounts);
+        void AddResources(Dictionary<ResourceType, float> amounts);
+        Dictionary<ResourceType, float> GetInventoryData();
     }
 }

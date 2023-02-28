@@ -1,7 +1,11 @@
-﻿namespace Dto
+﻿using Enums;
+using ScriptableObjects.Resources;
+
+namespace Dto
 {
-    public class ResourceDto
+    public struct ResourceDto
     {
-        public string Title;
+        public ResourceConfig Config;
+        public ResourceType Type;
     }
 }

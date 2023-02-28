@@ -1,6 +1,8 @@
-﻿using Core.Controllers;
+﻿using System;
+using Core.Controllers;
 using Core.Controllers.Interfaces;
 using Core.Models;
+using Core.Views.Interfaces;
 using Interfaces;
 using MonoBehaviours;
 using UnityEngine;
@@ -9,19 +11,23 @@ using UnityEngine.UI;
 
 namespace Core.Views
 {
-    public class PlayerToolView : View
+    public class PlayerToolView : View, IChargableToolView
     { 
         [SerializeField] private Image _batteryBar;
-        [SerializeField] private Text _warningText;
-        [FormerlySerializedAs("_alertView")] [SerializeField] private Alert alert;
+        [SerializeField] private WarningText _warningText;
         
         private IPlayerToolController _controller;
-        public void Init(PlayerToolModel playerModel, PlayerResearchesModel researchesModel, IPlayerToolController controller)
+        private IChargableToolController _chargableController;
+        public void Init(IPlayerToolController controller, IChargableToolController chargableToolController)
         {
+            if (controller == null) throw new ArgumentException("controller is null");
+            if (chargableToolController == null) throw new ArgumentException("chargable Tool Controller is null");
+            
+            _chargableController = chargableToolController;
             _controller = controller;
-            playerModel.OnBatteryChange += DrawBattery;
-            researchesModel.OnResearchNeedEvent += () => DrawError("Ресурс не изучен");
-            GlobalEventManager.OnResearchEnd += dto => { alert.NewAlert(dto); };
+         
+            var chargable = _controller as IChargableToolController;
+            if (chargable != null) chargable.OnBatteryChange += DrawBattery;
         }
 
         public PlayerToolView SetBatteryBar(Image bar)
@@ -30,18 +36,12 @@ namespace Core.Views
             return this;
         }
 
-        public PlayerToolView SetWarningText(Text text)
+        public PlayerToolView SetWarningText(WarningText text)
         {
             _warningText = text;
             return this;
         }
-
-        public PlayerToolView SetAlertView(Alert alert)
-        {
-            this.alert = alert;
-            return this;
-        }
-
+        
         private void Update()
         {
             if (Input.GetMouseButton(0))
@@ -63,6 +63,11 @@ namespace Core.Views
         private void DrawError(string text)
         {
             _warningText.text = text;
+        }
+
+        public void Charge(float value)
+        {
+            _chargableController.ChargeBattery(value);
         }
     }
 }

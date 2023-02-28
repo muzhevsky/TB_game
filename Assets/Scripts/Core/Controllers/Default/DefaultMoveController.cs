@@ -11,6 +11,11 @@ namespace Core.Controllers.Default
         private PlayerModel _playerModel;
         private ObjectComponentsModel _objectComponentsModel;
 
+        private DefaultMoveController()
+        {
+            
+        }
+        
         public DefaultMoveController(ObjectComponentsModel objectComponentsModel, PlayerModel playerModel)
         {
             if (objectComponentsModel == null) throw new ArgumentException ("objectComponentsModel can not be null");

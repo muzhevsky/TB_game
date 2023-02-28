@@ -9,6 +9,11 @@ namespace Core.Controllers.Default
     public class DefaultJumpController : IJumpController
     {
         private ObjectComponentsModel _objectComponentsModel;
+        
+        private DefaultJumpController()
+        {
+            
+        }
         public DefaultJumpController(ObjectComponentsModel objectComponentsModel)
         {
             if (objectComponentsModel == null) throw new ArgumentException ("objectComponentsModel can not be null");

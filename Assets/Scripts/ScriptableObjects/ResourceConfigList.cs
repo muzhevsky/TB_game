@@ -16,10 +16,10 @@ namespace ScriptableObjects
             ResourceDto result = new ResourceDto();
             foreach (var item in _configs)
             {
-                
                 if (item.Type == type)
                 {
-                    result.Title = item.Title;
+                    result.Config = item;
+                    result.Type = item.Type;
                     break;
                 }
             }
