@@ -7,16 +7,10 @@ namespace Core.Models
 {
     public class BatteryChargerModel : Model
     {
-        public bool ChargeAvailable;
-        
         private float _efficiency;
-        private LinkedList<IChargableToolView> _toolsNearby = new LinkedList<IChargableToolView>();
-        
-        public LinkedList<IChargableToolView> ToolsNearby
-        {
-            get => _toolsNearby;
-            private set => _toolsNearby = value;
-        }
+        public bool ChargeAvailable;
+
+        public LinkedList<IChargableToolView> ToolsNearby { get; private set; } = new();
 
         public float Efficiency
         {
@@ -27,7 +21,5 @@ namespace Core.Models
                 _efficiency = value;
             }
         }
-        
-        
     }
 }

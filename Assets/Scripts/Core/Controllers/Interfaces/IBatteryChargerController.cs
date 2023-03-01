@@ -1,5 +1,4 @@
-﻿using Core.Views;
-using Core.Views.Interfaces;
+﻿using Core.Views.Interfaces;
 
 namespace Core.Controllers.Interfaces
 {

@@ -1,8 +1,5 @@
 ﻿using Core.Models;
-using Dto;
-using MonoBehaviours;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Core.Views
@@ -17,7 +14,7 @@ namespace Core.Views
             model.OnBoosterChanged += DrawBooster;
             model.OnHPChanged += DrawHP;
         }
-        
+
         public DefaultPlayerView SetHPBar(Image bar)
         {
             _hpBar = bar;
@@ -29,6 +26,7 @@ namespace Core.Views
             _boosterBar = bar;
             return this;
         }
+
         public void DrawHP(float value)
         {
             _hpBar.fillAmount = value;

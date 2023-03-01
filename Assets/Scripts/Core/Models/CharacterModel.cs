@@ -5,18 +5,16 @@ namespace Core.Models
 {
     public class CharacterModel : Model
     {
+        private float _acceleration = 35;
+
+        private float _hp = 100;
+        private float _hpRecovery = 0.5f;
+        private float _jumpForce = 10;
+        private float _maxHp = 100;
+        private float _maxSpeed = 100;
         public bool IsGrounded;
         public bool Recoverable;
-        
-        private float _hp = 100;
-        private float _maxHp = 100;
-        private float _hpRecovery = 0.5f;
-        
-        private float _acceleration = 35;
-        private float _jumpForce = 10;
-        private float _maxSpeed = 100;
 
-        public event Action<float> OnHPChanged;
         public float MaxHp
         {
             get => _maxHp;
@@ -27,6 +25,7 @@ namespace Core.Models
                 OnHPChanged?.Invoke(_hp / _maxHp);
             }
         }
+
         public float Hp
         {
             get => _hp;
@@ -37,7 +36,7 @@ namespace Core.Models
                 OnHPChanged?.Invoke(_hp / _maxHp);
             }
         }
-        
+
         public float Acceleration
         {
             get => _acceleration;
@@ -77,5 +76,7 @@ namespace Core.Models
                 _hpRecovery = value;
             }
         }
+
+        public event Action<float> OnHPChanged;
     }
 }

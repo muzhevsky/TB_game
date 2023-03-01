@@ -1,21 +1,18 @@
 ﻿using Core.Controllers.Interfaces;
 using Core.Models;
 using Dto;
-using Enums;
-using UnityEngine;
 
 namespace Core.Controllers.Default
 {
     public class DefaultResourceController : IResourceController
     {
-        private ResourceModel _resourceModel;
         private ObjectComponentsModel _objectComponentsModel;
+        private readonly ResourceModel _resourceModel;
 
         private DefaultResourceController()
         {
-            
         }
-        
+
         public DefaultResourceController(ResourceModel resourceModel, ObjectComponentsModel objectComponentModel)
         {
             _objectComponentsModel = objectComponentModel;
@@ -25,8 +22,8 @@ namespace Core.Controllers.Default
 
         public HarvestActionDto HarvestResource(float value)
         {
-            HarvestActionDto result = new HarvestActionDto();
-            ResourceDto resourceDto = new ResourceDto();
+            var result = new HarvestActionDto();
+            var resourceDto = new ResourceDto();
             resourceDto.Type = _resourceModel.ResourceType;
             resourceDto.Config = _resourceModel.Config;
             result.ResourceDto = resourceDto;
@@ -37,7 +34,7 @@ namespace Core.Controllers.Default
                 result.IsFinished = false;
                 return result;
             }
-            
+
             _resourceModel.ValueLeft -= value;
             result.IsSucceed = true;
             if (_resourceModel.ValueLeft <= 0)

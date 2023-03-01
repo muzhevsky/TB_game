@@ -6,20 +6,20 @@ namespace Core.Controllers.Player
 {
     public class PlayerRotationController : IRotationController
     {
-        private float _sensitivity;
-        private IRotationController _wrappedController;
+        private readonly float _sensitivity;
+        private readonly IRotationController _wrappedController;
 
         private PlayerRotationController()
         {
-            
         }
 
-        public PlayerRotationController(IRotationController wrappedController, ObjectComponentsModel objectComponentsModel, PlayerSettingsModel playerSettings)
+        public PlayerRotationController(IRotationController wrappedController,
+            ObjectComponentsModel objectComponentsModel, PlayerSettingsModel playerSettings)
         {
             _sensitivity = playerSettings.MouseSensitivity;
             _wrappedController = wrappedController;
         }
-        
+
         public void Rotate(Vector3 mouseDiff)
         {
             var x = Quaternion.AngleAxis(-mouseDiff.y * _sensitivity, Vector3.right).eulerAngles;

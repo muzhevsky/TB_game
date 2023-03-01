@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Controllers.Ship;
+﻿using Core.Controllers.Ship;
 using Core.Models;
 using Core.Utils;
 using Core.Views;
@@ -7,23 +6,23 @@ using UnityEngine;
 
 namespace Initialisers
 {
-    public class BatteryChargerInitialiser : MonoBehaviour, IInitialiser
+    public class BatteryChargerInitialiser : MonoBehaviour
     {
-        private void Start()
+        private void Awake()
         {
             Init();
         }
 
         public void Init()
         {
-            BatteryChargerModel batteryChargerModel = new BatteryChargerModel();
+            var batteryChargerModel = new BatteryChargerModel();
             batteryChargerModel.Efficiency = 1;
-            
-            BatteryChargerController batteryChargerController = new BatteryChargerController(batteryChargerModel);
+
+            var batteryChargerController = new BatteryChargerController(batteryChargerModel);
             Updater.AddFixedUpdatable(batteryChargerController);
-            ((IFixedUpdatable)(batteryChargerController)).ActivateFixedUpdate();
-            
-            BatteryChargerView batteryChargerView = 
+            ((IFixedUpdatable)batteryChargerController).ActivateFixedUpdate();
+
+            var batteryChargerView =
                 (BatteryChargerView)gameObject.AddComponent(typeof(BatteryChargerView));
             batteryChargerView.InitBatteryChargerController(batteryChargerController);
         }

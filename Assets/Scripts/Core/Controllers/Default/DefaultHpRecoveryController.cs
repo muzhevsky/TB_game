@@ -1,25 +1,19 @@
 ﻿using System;
-using System.IO;
 using Core.Controllers.Interfaces;
 using Core.Models;
 using Core.Utils;
 
 namespace Core.Controllers.Default
 {
-    public class DefaultHpRecoveryController: IRecoveryController, IFixedUpdatable
+    public class DefaultHpRecoveryController : IRecoveryController, IFixedUpdatable
     {
-        private CharacterModel _characterModel;
+        private readonly CharacterModel _characterModel;
 
         public DefaultHpRecoveryController(CharacterModel characterModel)
         {
-            if (characterModel == null) throw new ArgumentException ("characterModel can not be null");
-            
-            _characterModel = characterModel;
-        }
+            if (characterModel == null) throw new ArgumentException("characterModel can not be null");
 
-        public void Recover(float value)
-        {
-            _characterModel.Hp += value;
+            _characterModel = characterModel;
         }
 
         public void ActivateFixedUpdate()
@@ -36,6 +30,11 @@ namespace Core.Controllers.Default
         public void StopFixedUpdate()
         {
             _characterModel.Recoverable = false;
+        }
+
+        public void Recover(float value)
+        {
+            _characterModel.Hp += value;
         }
     }
 }

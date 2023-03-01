@@ -1,19 +1,16 @@
 ﻿using Core.Controllers.Interfaces;
 using Core.Models;
 using Core.Utils;
-using Core.Views;
 using Core.Views.Interfaces;
-using UnityEngine;
 
 namespace Core.Controllers.Ship
 {
     public class BatteryChargerController : IBatteryChargerController, IFixedUpdatable
     {
-        private BatteryChargerModel _model;
+        private readonly BatteryChargerModel _model;
 
         private BatteryChargerController()
         {
-            
         }
 
         public BatteryChargerController(BatteryChargerModel model)
@@ -39,12 +36,8 @@ namespace Core.Controllers.Ship
         public void FixedUpdate()
         {
             if (_model.ChargeAvailable)
-            {
                 foreach (var item in _model.ToolsNearby)
-                {
                     item.Charge(_model.Efficiency);
-                }
-            }
         }
 
         public void StopFixedUpdate()

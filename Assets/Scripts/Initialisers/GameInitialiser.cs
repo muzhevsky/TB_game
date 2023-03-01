@@ -1,14 +1,13 @@
-using MonoBehaviours;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Initialisers
 {
     public class GameInitialiser : MonoBehaviour
     {
-        void Start()
+        private void Awake()
         {
             Application.targetFrameRate = 60;
+            Cursor.visible = false;
         }
     }
 }

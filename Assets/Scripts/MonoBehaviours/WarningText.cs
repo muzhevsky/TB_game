@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +7,7 @@ namespace MonoBehaviours
     public class WarningText : Text
     {
         private Coroutine _fadeOut;
+
         public override string text
         {
             get => m_Text;
@@ -29,6 +29,7 @@ namespace MonoBehaviours
                 _fadeOut = null;
                 yield break;
             }
+
             _fadeOut = StartCoroutine(FadeOut());
         }
     }

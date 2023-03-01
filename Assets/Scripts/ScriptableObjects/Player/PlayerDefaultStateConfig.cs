@@ -6,29 +6,29 @@ namespace ScriptableObjects.Player
     [CreateAssetMenu(menuName = "ScriptableObjects/PlayerDefaultSettings")]
     public class PlayerDefaultStateConfig : ScriptableObject
     {
-        [Header("Upgrades")]
-        [SerializeField] private PlayerUpgradesConfig _upgradesConfig;
-        
-        [Header("Hp")]
-        [SerializeField] private float _hp;
+        [Header("Upgrades")] [SerializeField] private PlayerUpgradesConfig _upgradesConfig;
+
+        [Header("Hp")] [SerializeField] private float _hp;
+
         [SerializeField] private float _maxHp;
         [SerializeField] private float _hpRecovery;
-        
-        [Header("Movement")]
-        [SerializeField] private float _acceleration;
+
+        [Header("Movement")] [SerializeField] private float _acceleration;
+
         [SerializeField] private float _jumpForce;
         [SerializeField] private float _maxSpeed;
 
-        [Header("Booster")] 
-        [SerializeField] private float _boosterRecovery;
+        [Header("Booster")] [SerializeField] private float _boosterRecovery;
+
         [SerializeField] private float _boosterConsumption;
 
-        [Header("Tool")] 
-        [SerializeField] private float _range;
+        [Header("Tool")] [SerializeField] private float _range;
+
         [SerializeField] private float _batteryConsumption;
+
         public PlayerModel GetPlayerStatsModel()
         {
-            PlayerModel result = new PlayerModel();
+            var result = new PlayerModel();
             result.Hp = _hp;
             result.MaxHp = _maxHp;
             result.HpRecovery = _hpRecovery;
@@ -44,12 +44,12 @@ namespace ScriptableObjects.Player
 
         public PlayerToolModel GetPlayerToolModel()
         {
-            PlayerToolModel result = new PlayerToolModel();
+            var result = new PlayerToolModel();
             result.Efficiency = _upgradesConfig.GetEfficiencyByLevel(0);
             result.Range = _range;
             result.BatteryConsumption = _batteryConsumption;
-            result.BatteryLeft = _upgradesConfig.GetBatteryCapByLevel(0);
             result.BatteryCap = _upgradesConfig.GetBatteryCapByLevel(0);
+            result.BatteryLeft = 0f;
             return result;
         }
     }

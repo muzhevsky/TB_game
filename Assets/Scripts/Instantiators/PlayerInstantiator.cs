@@ -1,8 +1,6 @@
-﻿using Core.Views;
-using Initialisers;
+﻿using Initialisers;
 using MonoBehaviours;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Instantiators
@@ -15,12 +13,13 @@ namespace Instantiators
         [SerializeField] private Image _batteryBar;
         [SerializeField] private WarningText _warningText;
         [SerializeField] private InventoryWindow _inventoryWindow;
-        private void Start()
+
+        private void Awake()
         {
-            GameObject player = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
+            var player = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
 
             PlayerInitialiser initialiser = null;
-            player.TryGetComponent<PlayerInitialiser>(out initialiser);
+            player.TryGetComponent(out initialiser);
             if (initialiser != null)
             {
                 initialiser.HpBar = _hpBar;

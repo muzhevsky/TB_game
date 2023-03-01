@@ -11,31 +11,20 @@ namespace ScriptableObjects.Resources
         [SerializeField] private float _researchNeed;
         [SerializeField] private string _description;
         [SerializeField] private Sprite _descriptionSprite;
-        
-        public ResearchableModel GetResourceModel()
-        {
-            var result = new ResearchableModel
-            {
-                ResearchableType = _type,
-                ResearchNeed = _researchNeed,
-                ResearchConfig = this
-            };
-            return result;
-        }
-        
-        
+
+
         public string Description
         {
             get => _description;
             private set => _description = value;
         }
-        
+
         public Sprite DescriptionSprite
         {
             get => _descriptionSprite;
             private set => _descriptionSprite = value;
         }
-        
+
         public ResearchableType Type
         {
             get => _type;
@@ -46,6 +35,17 @@ namespace ScriptableObjects.Resources
         {
             get => _researchNeed;
             private set => _researchNeed = value;
+        }
+
+        public ResearchableModel GetResourceModel()
+        {
+            var result = new ResearchableModel
+            {
+                ResearchableType = _type,
+                ResearchNeed = _researchNeed,
+                ResearchConfig = this
+            };
+            return result;
         }
     }
 }

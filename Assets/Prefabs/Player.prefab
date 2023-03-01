@@ -251,6 +251,9 @@ MonoBehaviour:
   _batteryBar: {fileID: 0}
   _warningText: {fileID: 0}
   _inventoryWindow: {fileID: 0}
+  _startHealth: 60
+  _startBattery: 40
+  _interactionDistance: 2
 --- !u!135 &3237949005525123406
 SphereCollider:
   m_ObjectHideFlags: 0

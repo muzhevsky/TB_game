@@ -6,8 +6,9 @@ namespace Core.Utils
 {
     public class Updater : MonoBehaviour
     {
-        private static List<IUpdatable> s_updates = new List<IUpdatable>();
-        private static List<IFixedUpdatable> s_fixedUpdates = new List<IFixedUpdatable>();
+        private static readonly List<IUpdatable> s_updates = new();
+        private static readonly List<IFixedUpdatable> s_fixedUpdates = new();
+
         private void Update()
         {
             foreach (var item in s_updates)
@@ -37,7 +38,7 @@ namespace Core.Utils
             foreach (var item in s_updates)
                 item.ActivateUpdate();
         }
-        
+
         public static void StartFixedUpdateAll()
         {
             foreach (var item in s_fixedUpdates)

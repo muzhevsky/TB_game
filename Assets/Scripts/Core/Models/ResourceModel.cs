@@ -6,8 +6,6 @@ namespace Core.Models
 {
     public class ResourceModel
     {
-        private float _valueLeft;
-        private ResourceType _resourceType;
         private ResourceConfig _config;
 
         public ResourceConfig Config
@@ -19,17 +17,9 @@ namespace Core.Models
                 _config = value;
             }
         }
-        
-        public float ValueLeft
-        {
-            get => _valueLeft;
-            set => _valueLeft = value;
-        }
 
-        public ResourceType ResourceType
-        {
-            get => _resourceType;
-            set => _resourceType = value;
-        }
+        public float ValueLeft { get; set; }
+
+        public ResourceType ResourceType { get; set; }
     }
 }

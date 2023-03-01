@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Utils;
+﻿using Core.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,11 +9,11 @@ namespace Initialisers
     {
         [SerializeField] private Image _image;
         [SerializeField] private TMP_Text _text;
-        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private GameObject _window;
 
-        private void Start()
+        private void Awake()
         {
-            AlertManager.Init(_image, _text, _canvasGroup);
+            AlertManager.Init(_image, _text, _window);
         }
     }
 }

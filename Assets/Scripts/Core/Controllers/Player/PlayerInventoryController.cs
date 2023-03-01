@@ -9,17 +9,16 @@ namespace Core.Controllers.Player
 {
     public class PlayerInventoryController : Controller, IInventoryController
     {
-        private InventoryModel _model;
+        private readonly InventoryModel _model;
 
         public PlayerInventoryController(InventoryModel model)
         {
-            if (model == null) throw new ArgumentException ("model can not be null");
+            if (model == null) throw new ArgumentException("model can not be null");
             _model = model;
         }
 
         private PlayerInventoryController()
         {
-            
         }
 
         public bool SpendResource(Dictionary<ResourceType, float> amounts)

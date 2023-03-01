@@ -1,8 +1,6 @@
-﻿using System;
-using Core.Controllers.Interfaces;
+﻿using Core.Controllers.Interfaces;
 using Core.Views.Interfaces;
 using Dto;
-using Enums;
 using UnityEngine;
 
 namespace Core.Views

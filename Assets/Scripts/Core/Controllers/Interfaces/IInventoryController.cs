@@ -7,5 +7,6 @@ namespace Core.Controllers.Interfaces
     {
         bool SpendResource(Dictionary<ResourceType, float> amounts);
         void AddResources(Dictionary<ResourceType, float> amounts);
+        Dictionary<ResourceType, float> GetInventoryData();
     }
 }

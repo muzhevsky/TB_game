@@ -1,7 +1,4 @@
-﻿using Enums;
-using ScriptableObjects.Resources;
-
-namespace Dto
+﻿namespace Dto
 {
     public struct ResearchActionDto
     {

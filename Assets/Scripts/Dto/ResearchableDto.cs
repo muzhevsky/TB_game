@@ -1,6 +1,5 @@
 ﻿using Enums;
 using ScriptableObjects.Resources;
-using UnityEngine;
 
 namespace Dto
 {

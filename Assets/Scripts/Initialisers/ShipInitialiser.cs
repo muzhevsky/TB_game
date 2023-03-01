@@ -1,18 +1,18 @@
-﻿using System;
-using Core.Controllers.Ship;
+﻿using Core.Controllers.Ship;
 using Core.Models;
-using Core.Utils;
 using Core.Views;
 using MonoBehaviours;
-using Unity.VisualScripting;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Initialisers
 {
-    public class ShipInitialiser : MonoBehaviour, IInitialiser
+    public class ShipInitialiser : MonoBehaviour
     {
-        [SerializeField] private WarningText _warningText;
-        private void Start()
+        [SerializeField] private ResourceConfigList _configs;
+        [SerializeField] private RepairWindow _repairWindow;
+
+        private void Awake()
         {
             Init();
         }
@@ -20,14 +20,15 @@ namespace Initialisers
         public void Init()
         {
             // models
-            ShipRepairModel shipRepairModel = new ShipRepairModel();
+            var shipRepairModel = new ShipRepairModel();
 
             //controllers
-            ShipRepairController shipRepairController = new ShipRepairController(shipRepairModel, _warningText);
-            
+            var shipRepairController =
+                new ShipRepairController(shipRepairModel, _repairWindow, _configs);
+
             //views
-            ShipRepairView shipRepairView = (ShipRepairView)gameObject.AddComponent(typeof(ShipRepairView));
-            shipRepairView.InitShipRepairController(shipRepairController);
+            var shipRepairView = (ShipRepairView)gameObject.GetComponent(typeof(ShipRepairView));
+            shipRepairView.InitShipRepairController(shipRepairController, _repairWindow);
         }
     }
 }

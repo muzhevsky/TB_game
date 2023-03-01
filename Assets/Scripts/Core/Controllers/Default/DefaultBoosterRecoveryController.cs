@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Core.Controllers.Interfaces;
 using Core.Models;
 using Core.Utils;
@@ -7,16 +6,16 @@ using UnityEngine;
 
 namespace Core.Controllers.Default
 {
-    public class DefaultBoosterRecoveryController: IRecoveryController, IFixedUpdatable
+    public class DefaultBoosterRecoveryController : IRecoveryController, IFixedUpdatable
     {
-        private PlayerModel _playerModel;
-        
+        private readonly PlayerModel _playerModel;
+
         private bool _recoverAvailable;
 
         public DefaultBoosterRecoveryController(PlayerModel playerModel)
         {
-            if (playerModel == null) throw new ArgumentException ("playerSuitModel can not be null");
-            
+            if (playerModel == null) throw new ArgumentException("playerSuitModel can not be null");
+
             _playerModel = playerModel;
         }
 
@@ -27,7 +26,7 @@ namespace Core.Controllers.Default
 
         public void FixedUpdate()
         {
-            if(_recoverAvailable)
+            if (_recoverAvailable)
                 _playerModel.Booster += _playerModel.BoosterRecovery;
         }
 

@@ -7,8 +7,14 @@ namespace Core.Views
 {
     public class PlayerMoveInputView : View
     {
-        private IMoveController _moveController;
         private IJumpController _jumpController;
+        private IMoveController _moveController;
+
+        private void FixedUpdate()
+        {
+            MoveInput();
+            JumpInput();
+        }
 
         public PlayerMoveInputView InitMoveController(IMoveController moveController)
         {
@@ -16,18 +22,12 @@ namespace Core.Views
             _moveController = moveController;
             return this;
         }
-    
+
         public PlayerMoveInputView InitJumpController(IJumpController jumpController)
         {
             if (jumpController == null) throw new NullReferenceException("jump controller can not be null");
             _jumpController = jumpController;
             return this;
-        }
-
-        private void FixedUpdate()
-        {
-            MoveInput();
-            JumpInput();
         }
 
         private void MoveInput()

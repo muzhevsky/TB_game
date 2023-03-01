@@ -1,18 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Enums;
 
 namespace Core.Models
 {
     public class ShipRepairModel
     {
-        private IShipRepairState _currentRepairState = new FirstShipRepairState();
-        private bool _readyToFly = false;
-        
+        private IShipRepairState _currentRepairState = ShipRepairState.GetFirstState();
+
+        public bool ReadyToFly { get; private set; }
+
+        public event Action OnReadyToFly;
+
         public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources)
         {
-            IShipRepairState next = _currentRepairState.GetNext();
+            var next = _currentRepairState.GetNext();
 
-            if (next == null) return null;
+            if (next == null)
+            {
+                ReadyToFly = true;
+                OnReadyToFly?.Invoke();
+                return null;
+            }
 
             var resourcesToSpend = _currentRepairState.TryToRepair(resources);
 
@@ -22,31 +31,65 @@ namespace Core.Models
             return resourcesToSpend;
         }
 
-        public bool ReadyToFly
+        public Dictionary<ResourceType, float> GetResourceAmount()
         {
-            get => _readyToFly;
-            private set => _readyToFly = value;
+            return _currentRepairState.GetResourceAmount();
         }
     }
 
     public interface IShipRepairState
     {
         IShipRepairState GetNext();
+        public Dictionary<ResourceType, float> GetResourceAmount();
         public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources);
     }
 
-    public class FirstShipRepairState : IShipRepairState
+    public class ShipRepairState : IShipRepairState
     {
-        private Dictionary<ResourceType, float> _resourcesNeed = new Dictionary<ResourceType, float>();
+        private readonly Dictionary<ResourceType, float> _resourcesNeed;
+        private readonly IShipRepairState _next;
 
-        public FirstShipRepairState()
+        private static List<IShipRepairState> _states = new List<IShipRepairState>();
+
+        static ShipRepairState()
         {
-            _resourcesNeed.Add(ResourceType.CommonOre, 50);
+            var values = new Dictionary<ResourceType, float>();
+            values.Add(ResourceType.CommonOre, 120);
+            values.Add(ResourceType.SpecialOre, 40);
+            var thirdState = new ShipRepairState(values, null);
+
+            values[ResourceType.CommonOre] = 80;
+            values[ResourceType.SpecialOre] = 20;
+            var secondState = new ShipRepairState(values, thirdState);
+
+            values.Remove(ResourceType.SpecialOre);
+            values[ResourceType.CommonOre] = 50;
+            var firstState = new ShipRepairState(values, secondState);
+            
+            _states.Add(firstState);
+            _states.Add(secondState);
+            _states.Add(thirdState);
+        }
+
+        public static IShipRepairState GetFirstState()
+        {
+            return _states[0];
+        }
+        
+        private ShipRepairState(Dictionary<ResourceType, float> values, IShipRepairState next)
+        {
+            _resourcesNeed = new Dictionary<ResourceType, float>(values);
+            _next = next;
         }
 
         public IShipRepairState GetNext()
         {
-            return new SecondShipRepairState();
+            return _next;
+        }
+
+        public Dictionary<ResourceType, float> GetResourceAmount()
+        {
+            return new Dictionary<ResourceType, float>(_resourcesNeed);
         }
 
         public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources)
@@ -57,34 +100,7 @@ namespace Core.Models
                 if (_resourcesNeed[key] > resources[key]) return null;
             }
 
-            return new Dictionary<ResourceType, float>(_resourcesNeed);
-        }
-    }
-
-    public class SecondShipRepairState : IShipRepairState
-    {
-        private Dictionary<ResourceType, float> _resourcesNeed = new Dictionary<ResourceType, float>();
-
-        public SecondShipRepairState()
-        {
-            _resourcesNeed.Add(ResourceType.CommonOre, 70);
-            _resourcesNeed.Add(ResourceType.SpecialOre, 40);
-        }
-
-        public IShipRepairState GetNext()
-        {
-            return null;
-        }
-
-        public Dictionary<ResourceType, float> TryToRepair(Dictionary<ResourceType, float> resources)
-        {
-            foreach (var key in _resourcesNeed.Keys)
-            {
-                if (!resources.ContainsKey(key)) return null;
-                if (_resourcesNeed[key] > resources[key]) return null;
-            }
-
-            return new Dictionary<ResourceType, float>(_resourcesNeed);
+            return GetResourceAmount();
         }
     }
 }

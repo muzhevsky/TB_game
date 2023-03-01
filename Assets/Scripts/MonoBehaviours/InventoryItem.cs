@@ -1,5 +1,4 @@
-﻿using Dto;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace MonoBehaviours
@@ -9,10 +8,10 @@ namespace MonoBehaviours
         [SerializeField] private TMP_Text Title;
         [SerializeField] private TMP_Text Amount;
 
-        public void Init(ResourceDto resource, float amount)
+        public void Init(string resourceName, string amount)
         {
-            Title.text = resource.Config.Title;
-            Amount.text = amount.ToString();
+            Title.text = resourceName;
+            Amount.text = amount;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Dto;
-using Enums;
 
 namespace Core.Controllers.Interfaces
 {

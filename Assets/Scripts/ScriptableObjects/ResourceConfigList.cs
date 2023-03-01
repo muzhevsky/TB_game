@@ -13,16 +13,15 @@ namespace ScriptableObjects
 
         public ResourceDto GetDtoByType(ResourceType type)
         {
-            ResourceDto result = new ResourceDto();
+            var result = new ResourceDto();
             foreach (var item in _configs)
-            {
                 if (item.Type == type)
                 {
                     result.Config = item;
                     result.Type = item.Type;
                     break;
                 }
-            }
+
             return result;
         }
     }
